@@ -1,9 +1,11 @@
-# api documentation for  [grunt-bower-task (v0.4.0)](https://github.com/yatskevich/grunt-bower-task)  [![npm package](https://img.shields.io/npm/v/npmdoc-grunt-bower-task.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-grunt-bower-task) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-grunt-bower-task.svg)](https://travis-ci.org/npmdoc/node-npmdoc-grunt-bower-task)
+# api documentation for  [grunt-bower-task (v0.5.0)](https://github.com/yatskevich/grunt-bower-task)  [![npm package](https://img.shields.io/npm/v/npmdoc-grunt-bower-task.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-grunt-bower-task) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-grunt-bower-task.svg)](https://travis-ci.org/npmdoc/node-npmdoc-grunt-bower-task)
 #### Install Bower packages.
 
-[![NPM](https://nodei.co/npm/grunt-bower-task.png?downloads=true)](https://www.npmjs.com/package/grunt-bower-task)
+[![NPM](https://nodei.co/npm/grunt-bower-task.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/grunt-bower-task)
 
-[![apidoc](https://npmdoc.github.io/node-npmdoc-grunt-bower-task/build/screenCapture.buildNpmdoc.browser._2Fhome_2Ftravis_2Fbuild_2Fnpmdoc_2Fnode-npmdoc-grunt-bower-task_2Ftmp_2Fbuild_2Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-grunt-bower-task/build/apidoc.html)
+- [https://npmdoc.github.io/node-npmdoc-grunt-bower-task/build/apidoc.html](https://npmdoc.github.io/node-npmdoc-grunt-bower-task/build/apidoc.html)
+
+[![apidoc](https://npmdoc.github.io/node-npmdoc-grunt-bower-task/build/screenCapture.buildCi.browser.%252Ftmp%252Fbuild%252Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-grunt-bower-task/build/apidoc.html)
 
 ![npmPackageListing](https://npmdoc.github.io/node-npmdoc-grunt-bower-task/build/screenCapture.npmPackageListing.svg)
 
@@ -17,8 +19,7 @@
 
 {
     "author": {
-        "name": "Ivan Yatskevich",
-        "email": "ivan@yatskevich.com"
+        "name": "Ivan Yatskevich"
     },
     "bugs": {
         "url": "https://github.com/yatskevich/grunt-bower-task/issues"
@@ -30,30 +31,32 @@
         }
     ],
     "dependencies": {
-        "async": "~0.1.22",
-        "bower": "~1.3.0",
-        "colors": "~0.6.0-1",
+        "async": "^2.3.0",
+        "bower": "^1.7.9",
+        "bower-json": "^0.8.1",
+        "colors": "^1.1.2",
+        "fs-extra": "^2.1.2",
         "lodash": "~0.10.0",
-        "rimraf": "~2.0.2",
-        "wrench": "~1.4.3"
+        "rimraf": "^2.6.1"
     },
     "description": "Install Bower packages.",
     "devDependencies": {
-        "chai": "1.7.2",
-        "grunt": "~0.4.1",
-        "grunt-cli": "~0.1.6",
-        "grunt-contrib-jshint": "0.3.0",
-        "grunt-contrib-nodeunit": "~0.1.2",
-        "grunt-simple-mocha": "~0.4.0"
+        "chai": "^3.5.0",
+        "grunt": "^1.0.1",
+        "grunt-cli": "^1.2.0",
+        "grunt-contrib-jshint": "^1.0.0",
+        "grunt-contrib-nodeunit": "^1.0.0",
+        "grunt-simple-mocha": "^0.4.1"
     },
     "directories": {},
     "dist": {
-        "shasum": "daea0a55682a79a8c79db895b79be6f3ecb65817",
-        "tarball": "https://registry.npmjs.org/grunt-bower-task/-/grunt-bower-task-0.4.0.tgz"
+        "shasum": "c3c16983fabf18e412e26dfdd2114db465174584",
+        "tarball": "https://registry.npmjs.org/grunt-bower-task/-/grunt-bower-task-0.5.0.tgz"
     },
     "engines": {
         "node": ">= 0.10.0"
     },
+    "gitHead": "66b222ea1dea81538d1cb9d8da1c19dbcf55d6dd",
     "homepage": "https://github.com/yatskevich/grunt-bower-task",
     "keywords": [
         "gruntplugin",
@@ -68,13 +71,14 @@
     "main": "Gruntfile.js",
     "maintainers": [
         {
-            "name": "yatskevich",
-            "email": "ivan@yatskevich.com"
+            "name": "randomlyknighted"
+        },
+        {
+            "name": "yatskevich"
         }
     ],
     "name": "grunt-bower-task",
     "optionalDependencies": {},
-    "readme": "ERROR: No README data found!",
     "repository": {
         "type": "git",
         "url": "git://github.com/yatskevich/grunt-bower-task.git"
@@ -82,19 +86,9 @@
     "scripts": {
         "test": "grunt test"
     },
-    "version": "0.4.0"
+    "version": "0.5.0"
 }
 ```
-
-
-
-# <a name="apidoc.tableOfContents"></a>[table of contents](#apidoc.tableOfContents)
-
-#### [module grunt-bower-task](#apidoc.module.grunt-bower-task)
-
-
-
-# <a name="apidoc.module.grunt-bower-task"></a>[module grunt-bower-task](#apidoc.module.grunt-bower-task)
 
 
 
