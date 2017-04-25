@@ -65,44 +65,38 @@
 
         <li>
 
-            <a class="apidocElementLiA" href="#apidoc.element.grunt-bower-task.bower_task">
-            function <span class="apidocSignatureSpan">grunt-bower-task.</span>bower_task
-            <span class="apidocSignatureSpan">(grunt)</span>
-            </a>
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">grunt-bower-task.</span>layouts_manager</span>
 
         </li>
 
         <li>
 
-            <a class="apidocElementLiA" href="#apidoc.element.grunt-bower-task.toString">
-            function <span class="apidocSignatureSpan">grunt-bower-task.</span>toString
-            <span class="apidocSignatureSpan">()</span>
+            <span class="apidocSignatureSpan">object <span class="apidocSignatureSpan">grunt-bower-task.</span>package_matcher</span>
+
+        </li>
+
+    </ol></li>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.grunt-bower-task.layouts_manager">module grunt-bower-task.layouts_manager</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.grunt-bower-task.layouts_manager.getLayout">
+            function <span class="apidocSignatureSpan">grunt-bower-task.layouts_manager.</span>getLayout
+            <span class="apidocSignatureSpan">(layout, fail)</span>
             </a>
 
         </li>
 
     </ol></li>
 
-    <li class="apidocModuleLi"><a href="#apidoc.module.grunt-bower-task.bower_task">module grunt-bower-task.bower_task</a><ol>
+    <li class="apidocModuleLi"><a href="#apidoc.module.grunt-bower-task.package_matcher">module grunt-bower-task.package_matcher</a><ol>
 
         <li>
 
-            <a class="apidocElementLiA" href="#apidoc.element.grunt-bower-task.bower_task.bower_task">
-            function <span class="apidocSignatureSpan">grunt-bower-task.</span>bower_task
-            <span class="apidocSignatureSpan">(grunt)</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.grunt-bower-task.toString">module grunt-bower-task.toString</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.grunt-bower-task.toString.toString">
-            function <span class="apidocSignatureSpan">grunt-bower-task.</span>toString
-            <span class="apidocSignatureSpan">()</span>
+            <a class="apidocElementLiA" href="#apidoc.element.grunt-bower-task.package_matcher.matches">
+            function <span class="apidocSignatureSpan">grunt-bower-task.package_matcher.</span>matches
+            <span class="apidocSignatureSpan">(pkg, override_key)</span>
             </a>
 
         </li>
@@ -183,359 +177,88 @@
 
 
 
-    <h2>
-        <a href="#apidoc.element.grunt-bower-task.bower_task" id="apidoc.element.grunt-bower-task.bower_task">
-        function <span class="apidocSignatureSpan">grunt-bower-task.</span>bower_task
-        <span class="apidocSignatureSpan">(grunt)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">bower_task = function (grunt) {
-
-  var bower,
-    path,
-    async,
-    colors,
-    rimraf,
-    validator,
-    BowerAssets,
-    AssetCopier,
-    LayoutsManager;
-
-    /* ===============================================
-                      Helper Methods
-       =============================================*/
-    function requireDependencies() {
-    bower = require("bower");
-    path = require("path");
-    async = require("async");
-    colors = require("colors");
-    rimraf = require("rimraf").sync;
-    validator = require('bower-json');
-    BowerAssets = require("./lib/bower_assets");
-    AssetCopier = require("./lib/asset_copier");
-    LayoutsManager = require("./lib/layouts_manager");
-  }
-
-  function log(message) {
-    log.logger.writeln(message);
-  }
-
-  function validate(options) {
-    var bowerFile = bower.config.json || "bower.json";
-
-    validator.read(bowerFile, function (error, json) {
-      if (error) {
-        console.error("bower.json validation: Failed - " + error.message);
-      }
-      else {
-        if (options.verbose) {
-          console.info("bower.json validation: Passed");
-        }
-      }
-    });
-  }
-
-  /* ===============================================
-                    Core Methods
-    =============================================*/
-
-  function clean(dir, callback) {
-    rimraf(dir);
-    callback();
-  }
-
-  function copy(options, callback) {
-    var bowerAssets = new BowerAssets(bower, options.cwd);
-    bowerAssets.on("end", function (assets) {
-      var copier = new AssetCopier(assets, options, function (source, destination, isFile) {
-        log("grunt-bower " + "copying ".cyan + ((isFile ? "" : " dir ") + source + " -&gt; " + destination).grey);
-      });
-
-      copier.once("copied", callback);
-      copier.copy();
-    }).get();
-  }
-
-  function fail(error) {
-    grunt.fail.fatal(error);
-  }
-
-  function install(options, callback) {
-
-    validate(options);
-
-    bower.commands.install([], options.bowerOptions)
-      .on("log", function(result) {
-        log(["bower", result.id.cyan, result.message].join(" "));
-      })
-      .on("error", fail)
-      .on("end", callback);
-  }
 
 
 
-  function prune(options, callback) {
-    bower.commands.prune([], options.bowerOptions)
-      .on("log", function (result) {
-        log(["bower", result.id.cyan, result.message].join(" "));
-      })
-      .on("error", fail)
-      .on("end", callback);
-  }
+</div>
 
-  grunt.registerMultiTask("bower", "Install Bower packages.", function () {
-    var tasks = [],
-      done = this.async(),
-      options = this.options({
-        cleanTargetDir: false,
-        cleanBowerDir: false,
-        targetDir: "./lib",
-        layout: "byType",
-        install: true,
-        prune: false,
-        verbose: false,
-        copy: false,
-        bowerOptions: {}
-      }),
-      add = function (successMessage, fn) {
-        tasks.push(function (callback) {
-          fn(function () {
-            grunt.log.ok(successMessage);
-            callback();
-          });
-        });
-      },
-      bowerDir,
-      targetDir;
-
-    // calling require on the dependencies has been delayed to prevent slow
-    // dependencies delaying the startup of grunt even if this task is not used
-    // at all
-    requireDependencies();
-
-    bowerDir = path.resolve(bower.config.directory);
-    targetDir = path.resolve(options.targetDir);
-
-    log.logger = options.verbose ? grunt.log : grunt.verbose;
-    options.layout = LayoutsManager.getLayout(options.layout, fail);
-    options.cwd = grunt.option("base") || process.cwd();
-
-    if (options.cleanup !== undefined) {
-      options.cleanTargetDir = options.cleanBowerDir = options.cleanup;
-    }
-
-    if (options.cleanTargetDir) {
-      add("Cleaned target dir " + targetDir.grey, function (callback) {
-        clean(targetDir, callback);
-      });
-    }
-
-    if (options.install) {
-      add("Installed bower packages", function (callback) {
-        install(options, callback);
-      });
-    }
-
-    if (options.pr ...</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.grunt-bower-task.layouts_manager" id="apidoc.module.grunt-bower-task.layouts_manager">module grunt-bower-task.layouts_manager</a></h1>
 
 
     <h2>
-        <a href="#apidoc.element.grunt-bower-task.toString" id="apidoc.element.grunt-bower-task.toString">
-        function <span class="apidocSignatureSpan">grunt-bower-task.</span>toString
-        <span class="apidocSignatureSpan">()</span>
+        <a href="#apidoc.element.grunt-bower-task.layouts_manager.getLayout" id="apidoc.element.grunt-bower-task.layouts_manager.getLayout">
+        function <span class="apidocSignatureSpan">grunt-bower-task.layouts_manager.</span>getLayout
+        <span class="apidocSignatureSpan">(layout, fail)</span>
         </a>
     </h2>
     <ul>
-    <li>description and source-code<pre class="apidocCodePre">toString = function () {
-    return text;
+    <li>description and source-code<pre class="apidocCodePre">getLayout = function (layout, fail) {
+  if (_.isFunction(layout)) {
+    return layout;
+  }
+
+  if (!_.isString(layout)) {
+    fail('Layout should be specified by name or as a function');
+  }
+
+  if (_(defaultLayouts).has(layout)) {
+    return defaultLayouts[layout];
+  }
+
+  fail('The following named layouts are supported: ' + _.keys(defaultLayouts).join(', '));
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+// at all
+requireDependencies();
+
+bowerDir = path.resolve(bower.config.directory);
+targetDir = path.resolve(options.targetDir);
+
+log.logger = options.verbose ? grunt.log : grunt.verbose;
+options.layout = LayoutsManager.<span class="apidocCodeKeywordSpan">getLayout</span>(options.layout, fail);
+options.cwd = grunt.option("base") || process.cwd();
+
+if (options.cleanup !== undefined) {
+  options.cleanTargetDir = options.cleanBowerDir = options.cleanup;
+}
+
+if (options.cleanTargetDir) {
+...</pre></li>
     </ul>
 
 
 </div>
 
 <div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.grunt-bower-task.bower_task" id="apidoc.module.grunt-bower-task.bower_task">module grunt-bower-task.bower_task</a></h1>
+<h1><a href="#apidoc.module.grunt-bower-task.package_matcher" id="apidoc.module.grunt-bower-task.package_matcher">module grunt-bower-task.package_matcher</a></h1>
 
 
     <h2>
-        <a href="#apidoc.element.grunt-bower-task.bower_task.bower_task" id="apidoc.element.grunt-bower-task.bower_task.bower_task">
-        function <span class="apidocSignatureSpan">grunt-bower-task.</span>bower_task
-        <span class="apidocSignatureSpan">(grunt)</span>
+        <a href="#apidoc.element.grunt-bower-task.package_matcher.matches" id="apidoc.element.grunt-bower-task.package_matcher.matches">
+        function <span class="apidocSignatureSpan">grunt-bower-task.package_matcher.</span>matches
+        <span class="apidocSignatureSpan">(pkg, override_key)</span>
         </a>
     </h2>
     <ul>
-    <li>description and source-code<pre class="apidocCodePre">bower_task = function (grunt) {
-
-  var bower,
-    path,
-    async,
-    colors,
-    rimraf,
-    validator,
-    BowerAssets,
-    AssetCopier,
-    LayoutsManager;
-
-    /* ===============================================
-                      Helper Methods
-       =============================================*/
-    function requireDependencies() {
-    bower = require("bower");
-    path = require("path");
-    async = require("async");
-    colors = require("colors");
-    rimraf = require("rimraf").sync;
-    validator = require('bower-json');
-    BowerAssets = require("./lib/bower_assets");
-    AssetCopier = require("./lib/asset_copier");
-    LayoutsManager = require("./lib/layouts_manager");
+    <li>description and source-code<pre class="apidocCodePre">matches = function (pkg, override_key) {
+  if (pkg === override_key) {
+    return true;
   }
 
-  function log(message) {
-    log.logger.writeln(message);
+  if (override_key.match(/^\/.*\/$/)) {
+    var trueRegexMatcher = new RegExp(override_key.replace(/^\/|\/$/g, ''));
+    return trueRegexMatcher.test(pkg);
   }
 
-  function validate(options) {
-    var bowerFile = bower.config.json || "bower.json";
-
-    validator.read(bowerFile, function (error, json) {
-      if (error) {
-        console.error("bower.json validation: Failed - " + error.message);
-      }
-      else {
-        if (options.verbose) {
-          console.info("bower.json validation: Passed");
-        }
-      }
-    });
+  if (override_key.indexOf('*') &gt;= 0) {
+    override_key = override_key.replace(/[\-\[\]\/\{\}\(\)\+\?\.\\\^\$\|]/g, '\\$&amp;').replace('*', '.+');
+    var wildcardMatcher = new RegExp(override_key);
+    return wildcardMatcher.test(pkg);
   }
 
-  /* ===============================================
-                    Core Methods
-    =============================================*/
-
-  function clean(dir, callback) {
-    rimraf(dir);
-    callback();
-  }
-
-  function copy(options, callback) {
-    var bowerAssets = new BowerAssets(bower, options.cwd);
-    bowerAssets.on("end", function (assets) {
-      var copier = new AssetCopier(assets, options, function (source, destination, isFile) {
-        log("grunt-bower " + "copying ".cyan + ((isFile ? "" : " dir ") + source + " -&gt; " + destination).grey);
-      });
-
-      copier.once("copied", callback);
-      copier.copy();
-    }).get();
-  }
-
-  function fail(error) {
-    grunt.fail.fatal(error);
-  }
-
-  function install(options, callback) {
-
-    validate(options);
-
-    bower.commands.install([], options.bowerOptions)
-      .on("log", function(result) {
-        log(["bower", result.id.cyan, result.message].join(" "));
-      })
-      .on("error", fail)
-      .on("end", callback);
-  }
-
-
-
-  function prune(options, callback) {
-    bower.commands.prune([], options.bowerOptions)
-      .on("log", function (result) {
-        log(["bower", result.id.cyan, result.message].join(" "));
-      })
-      .on("error", fail)
-      .on("end", callback);
-  }
-
-  grunt.registerMultiTask("bower", "Install Bower packages.", function () {
-    var tasks = [],
-      done = this.async(),
-      options = this.options({
-        cleanTargetDir: false,
-        cleanBowerDir: false,
-        targetDir: "./lib",
-        layout: "byType",
-        install: true,
-        prune: false,
-        verbose: false,
-        copy: false,
-        bowerOptions: {}
-      }),
-      add = function (successMessage, fn) {
-        tasks.push(function (callback) {
-          fn(function () {
-            grunt.log.ok(successMessage);
-            callback();
-          });
-        });
-      },
-      bowerDir,
-      targetDir;
-
-    // calling require on the dependencies has been delayed to prevent slow
-    // dependencies delaying the startup of grunt even if this task is not used
-    // at all
-    requireDependencies();
-
-    bowerDir = path.resolve(bower.config.directory);
-    targetDir = path.resolve(options.targetDir);
-
-    log.logger = options.verbose ? grunt.log : grunt.verbose;
-    options.layout = LayoutsManager.getLayout(options.layout, fail);
-    options.cwd = grunt.option("base") || process.cwd();
-
-    if (options.cleanup !== undefined) {
-      options.cleanTargetDir = options.cleanBowerDir = options.cleanup;
-    }
-
-    if (options.cleanTargetDir) {
-      add("Cleaned target dir " + targetDir.grey, function (callback) {
-        clean(targetDir, callback);
-      });
-    }
-
-    if (options.install) {
-      add("Installed bower packages", function (callback) {
-        install(options, callback);
-      });
-    }
-
-    if (options.pr ...</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.grunt-bower-task.toString" id="apidoc.module.grunt-bower-task.toString">module grunt-bower-task.toString</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.grunt-bower-task.toString.toString" id="apidoc.element.grunt-bower-task.toString.toString">
-        function <span class="apidocSignatureSpan">grunt-bower-task.</span>toString
-        <span class="apidocSignatureSpan">()</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function toString() { [native code] }</pre></li>
+  return false;
+}</pre></li>
     <li>example usage<pre class="apidocCodePre">n/a</pre></li>
     </ul>
 
