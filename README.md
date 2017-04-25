@@ -1,4 +1,7 @@
-# api documentation for  [grunt-bower-task (v0.5.0)](https://github.com/yatskevich/grunt-bower-task)  [![npm package](https://img.shields.io/npm/v/npmdoc-grunt-bower-task.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-grunt-bower-task) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-grunt-bower-task.svg)](https://travis-ci.org/npmdoc/node-npmdoc-grunt-bower-task)
+# npmdoc-grunt-bower-task
+
+#### basic api documentation for  [grunt-bower-task (v0.5.0)](https://github.com/yatskevich/grunt-bower-task)  [![npm package](https://img.shields.io/npm/v/npmdoc-grunt-bower-task.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-grunt-bower-task) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-grunt-bower-task.svg)](https://travis-ci.org/npmdoc/node-npmdoc-grunt-bower-task)
+
 #### Install Bower packages.
 
 [![NPM](https://nodei.co/npm/grunt-bower-task.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/grunt-bower-task)
@@ -86,7 +89,8 @@
     "scripts": {
         "test": "grunt test"
     },
-    "version": "0.5.0"
+    "version": "0.5.0",
+    "bin": {}
 }
 ```
 
